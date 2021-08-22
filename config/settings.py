@@ -25,6 +25,8 @@ SECRET_KEY = 'django-insecure-t13!1^owmx)b@xthe2xzk(iysk^#+p0_uegi(g_azl(fb!qk1j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+AUTH_USER_MODEL = 'account.Dealer'
+
 ALLOWED_HOSTS = []
 
 
