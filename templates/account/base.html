@@ -1,0 +1,99 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Dealer app{% endblock title %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'account/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'account/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'account/vendor/animate/animate.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'account/vendor/css-hamburgers/hamburgers.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'account/vendor/select2/select2.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'account/css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'account/css/master.css' %}">
+    <!--===============================================================================================-->
+
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <style>
+        {% block style %}
+
+        {% endblock style %}
+    </style>
+
+</head>
+<body>
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+                {% block icon %}
+                    <!-- Required icon goes here -->
+                {% endblock icon %}
+            </div>
+
+            <form method="post" class="login100-form validate-form">{% csrf_token %}
+                <span class="login100-form-title animate__animated animate__zoomIn" id="title">
+						{% block header %}
+                        {% endblock header %}
+					</span>
+
+                {% block fields %}
+                    <!-- Fields of the required form should goes here -->
+                {% endblock fields %}
+
+                <div class="container-login100-form-btn animate__animated animate__zoomIn" id="btn-login">
+                    <button class="login100-form-btn">
+                        {% block btn_text %} {% endblock btn_text %}
+                    </button>
+                </div>
+
+                {% block sugesstions %}
+
+                {% endblock sugesstions %}
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    {% block js %}
+
+    {% endblock js %}
+</script>
+
+<!--===============================================================================================-->
+<script src="{% static 'account/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'account/vendor/bootstrap/js/popper.js' %}"></script>
+<script src="{% static 'account/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'account/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'account/vendor/tilt/tilt.jquery.min.js' %}"></script>
+<script>
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+<!--===============================================================================================-->
+<script src="{% static 'account/js/main.js' %}"></script>
+
+</body>
+</html>

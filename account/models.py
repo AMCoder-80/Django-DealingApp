@@ -6,28 +6,33 @@ from django.db import models
 
 
 class Dealer(AbstractUser):
-    first_name = models.CharField(max_length=60)
-    last_name = models.CharField(max_length=60)
-    email = models.EmailField()
+    first_name = models.CharField(max_length=60, verbose_name='نام')
+    last_name = models.CharField(max_length=60, verbose_name='نام خانوادگی')
+    email = models.EmailField(verbose_name='ایمیل')
 
     def __str__(self):
         return self.first_name + " " + self.last_name
 
+    class Meta:
+        verbose_name = 'مشاور'
+        verbose_name_plural = 'مشاوران'
+
 
 class User(models.Model):
     STATUS = (
-        ('O', 'Owner'),
-        ('B', 'Buyer'),
+        ('O', 'مالک'),
+        ('B', 'خریدار'),
     )
-    first_name = models.CharField(max_length=60)
-    last_name = models.CharField(max_length=60)
-    email = models.EmailField(null=True, blank=True)
-    phone = models.CharField(max_length=20)
-    status = models.CharField(max_length=1, choices=STATUS)
-    is_special = models.BooleanField(default=False)
-    identifier = models.CharField(max_length=30)
-    min_budget = models.BigIntegerField()
-    max_budget = models.BigIntegerField()
+    first_name = models.CharField(max_length=60, verbose_name='نام')
+    last_name = models.CharField(max_length=60, verbose_name='نام خانوادگی')
+    email = models.EmailField(null=True, blank=True, verbose_name='ایمیل')
+    phone = models.CharField(max_length=20, verbose_name='تلفن')
+    status = models.CharField(max_length=1, choices=STATUS, verbose_name='وضعیت')
+    max_budget = models.PositiveBigIntegerField(null=True, blank=True, verbose_name='حداکثر بودجه')
 
-    def __str(self):
+    def __str__(self):
         return self.first_name + " " + self.last_name
+
+    class Meta:
+        verbose_name = 'کاربر'
+        verbose_name_plural = 'کاربران'
