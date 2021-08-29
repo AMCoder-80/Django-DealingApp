@@ -32,7 +32,9 @@
                 return false;
             }
         } else {
-            if ($(input).val().trim() === '' && $(input).attr('type') !== 'email') {
+            if ($(input).val().trim() === '' && $(input).attr('type') !== 'email' && $(input).attr('name') !== 'max_budget') {
+                console.log($(input).attr('name'));
+                console.log('False')
                 return false;
             }
         }

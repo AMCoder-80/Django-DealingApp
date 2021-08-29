@@ -733,9 +733,15 @@
 {% endblock btn_text %}
 
 {% block sugesstions %}
-    {% if form.errors %}
+    {% if form.non_field_errors %}
         <div id="errors-section">
-            {% for field in form %}
+            {% for field in form.non_field_errors %}
+                <p>{{ field }}</p>
+            {% endfor %}
+        </div>
+    {% elif form.errors %}
+        <div id="errors-section">
+            {% for field in form.errors %}
                 <p>{{ field.errors }}</p>
             {% endfor %}
         </div>

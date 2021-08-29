@@ -11,7 +11,9 @@ from .models import Property
 
 
 class Home(ListView):
-    model = Property.objects.all()
+    model = Property
+    template_name = 'deal_app/home.html'
+    context_object_name = 'homes'
     
 
 class PropertyCreation(CreateView):

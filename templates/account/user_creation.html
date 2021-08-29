@@ -736,6 +736,22 @@
     ثبت
 {% endblock btn_text %}
 
+{% block sugesstions %}
+    {% if form.non_field_errors %}
+        <div id="errors-section">
+            {% for field in form.non_field_errors %}
+                <p>{{ field }}</p>
+            {% endfor %}
+        </div>
+    {% elif form.errors %}
+        <div id="errors-section">
+            {% for field in form.errors %}
+                <p>{{ field.errors }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock sugesstions %}
+
 {% block js %}
     let select_op = document.getElementById('id_status')
     select_op.addEventListener('change', function () {
@@ -751,5 +767,4 @@
     field.classList.add('animate__zoomOut')
     }
     })
-
 {% endblock js %}
