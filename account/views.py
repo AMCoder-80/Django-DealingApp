@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic import CreateView
-from .forms import DealerCreationForm, SignInForm
+from django.views.generic import CreateView, UpdateView
+from .forms import DealerCreationForm, SignInForm, ProfileForm
 from .models import *
 
 # Create your views here.
@@ -32,5 +32,18 @@ class DealerCreation(CreateView):
     template_name = 'account/registration.html'
 
 
+class ProfileUpdate(UpdateView):
+    model = Dealer
+    form_class = ProfileForm
+    template_name = 'AdminLTE/profile.html'
+
+    def get_object(self, queryset=None):
+        user = Dealer.objects.get(pk=self.request.user.pk)
+        return user
+
+    def get_success_url(self):
+        return reverse('account:profile')
+
+
 def test(request):
-    return render(request, 'deal_app/greeting.html')
+    return render(request, 'AdminLTE/dashboard.html')

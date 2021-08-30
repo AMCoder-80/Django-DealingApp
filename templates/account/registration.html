@@ -733,6 +733,13 @@
 {% endblock btn_text %}
 
 {% block sugesstions %}
+
+    <div class="text-center p-t-12 animate__animated animate__zoomIn" id="text1">
+        <a class="txt2" href="{% url 'account:login' %}">
+            اگه حساب داری میتونی از اینجا وارد شی
+        </a>
+    </div>
+
     {% if form.non_field_errors %}
         <div id="errors-section">
             {% for field in form.non_field_errors %}

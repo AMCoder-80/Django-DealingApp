@@ -16,6 +16,7 @@ class Options(models.Model):
         verbose_name = 'ویژگی'
         verbose_name_plural = 'ویژگی'
 
+
 class Property(models.Model):
     SALE_STATUS = (
         ('R', 'اجاره'),
@@ -39,9 +40,10 @@ class Property(models.Model):
     price = models.PositiveBigIntegerField(verbose_name='قیمت')
     options = models.ManyToManyField(Options, verbose_name='امکانات')
     requesters = models.ManyToManyField(User, limit_choices_to={'status': 'B'},
-                 related_name='requested_properties', null=True, blank=True, verbose_name='متقاضیان')
+                 related_name='requested_properties', blank=True, verbose_name='متقاضیان')
 
-    def __str__(self):
+    @property
+    def get_full_intro(self):
         status = {
             'A': 'آپارتمان',
             'S': 'فروش',
@@ -49,6 +51,9 @@ class Property(models.Model):
             'H': 'ویلایی'
         }
         return status[self.property_type] + " " + str(self.total_area) + " متری " + status[self.sale_type]
+
+    def __str__(self):
+        return self.get_full_intro
 
     class Meta:
         verbose_name = 'ملک'

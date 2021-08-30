@@ -72,17 +72,17 @@
 
             <nav style="text-align: center;" class="mx-auto site-navigation">
                 <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-                    <a class="btn btn-primary sign-btn" href="#" role="button">خروج</a>
-                    <li><a href="#" class="nav-link active">صفحه اصلی</a></li>
+                    <a class="btn btn-primary sign-btn" href="{% url 'account:logout' %}" role="button">خروج</a>
+                    <li><a href="{% url 'property:home' %}" class="nav-link active">صفحه اصلی</a></li>
 
                     <li class="has-children">
                         <a href="#">افزودن</a>
                         <ul class="dropdown">
-                            <li><a href="#">ملک</a></li>
-                            <li><a href="#">کاربر</a></li>
+                            <li><a href="{% url 'property:property_creation' %}" target="_blank">ملک</a></li>
+                            <li><a href="{% url 'account:user_creation' %}" target="_blank">کاربر</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">پروفایل</a></li>
+                    <li><a href="{% url 'account:profile' %}">پروفایل</a></li>
                     <li><a href="#">درباره</a></li>
                     <li><a href="#">ارتباط با ما</a></li>
                 </ul>
@@ -130,7 +130,7 @@
                             </div>
                             <div class="col-lg-6 order-lg-1">
                                 <div class="p-5">
-                                    <h2 class="display-4">{{ home.owner }}</h2>
+                                    <h2 class="display-4">{{ home.get_full_intro }}</h2>
                                     <p>{{ home.location }}</p>
                                 </div>
                             </div>
@@ -148,7 +148,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="p-5">
-                                <h2 class="display-4">{{ home.owner }}</h2>
+                                <h2 class="display-4">{{ home.get_full_intro }}</h2>
                                 <p>{{ home.location }}</p>
                             </div>
                         </div>
