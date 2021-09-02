@@ -31,12 +31,18 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        a.title{
+        a.title {
             color: black;
         }
 
-        a.title:hover{
+        a.title:hover {
             color: #0c5460;
+        }
+
+        ul.pagination {
+            align-items: center;
+            justify-content: center;
+            border-collapse: separate;
         }
     </style>
 
@@ -138,7 +144,7 @@
         {% endif %}
     {% endfor %}
 
-{% include 'deal_app/pagination.html' %}
+    {% include 'deal_app/pagination.html' %}
 
 </div>
 

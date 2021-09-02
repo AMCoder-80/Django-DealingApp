@@ -17,6 +17,7 @@ from .decorators import anonymous_only
 
 class Home(LoginRequiredMixin, ListView):
     model = Property
+    paginate_by = 4
     template_name = 'deal_app/home.html'
     context_object_name = 'homes'
     

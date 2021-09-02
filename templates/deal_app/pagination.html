@@ -1,18 +1,115 @@
-<nav aria-label="...">
-  <ul class="pagination">
-    <li class="page-item disabled">
-      <span class="page-link">Previous</span>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item active">
-      <span class="page-link">
-        2
-        <span class="sr-only">(current)</span>
-      </span>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
+{% load custom_filters %}
+
+{% if is_paginated %} <!-- Checks if the page was paginated or not -->
+
+    <!-- Available paginator and page_obj method and attributes -->
+    {#    <h1>{{ paginator.count }}</h1>#} <!-- All paginated objects -->
+    {#    <h1>{{ paginator.num_pages }}</h1> <!-- Total number of the pages -->#}
+    {#    <h1>{{ page_obj.number }}</h1> <!-- The number of current page -->#}
+    {#    <h1>{{ paginator.page_range }}</h1>#} <!-- The range of between start and end page numbers -->
+    {#    <h1>{{ page_obj.has_next }}</h1>#} <!-- True if has next page -->
+    {#    <h1>{{ page_obj.has_previous }}</h1>#} <!-- True if has previous page -->
+    {#    <h1>{{ page_obj.has_other_pages }}</h1>#} <!-- True if other pages exists -->
+    {#    <h1>{{ page_obj.previous_page_number }}</h1>#} <!-- The number of the previous page -->
+    {#    <h1>{{ page_obj.next_page_number }}</h1>#} <!-- The number of the next page -->
+
+    {% if paginator.num_pages > 5 %} <!-- Checks if the pagination range is small or need to be break into pieces -->
+        <nav aria-label="...">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">قبلی</span>
+                    </li>
+                {% endif %}
+
+                {% if page_obj.number < 4 %} <!-- Divide the page slices to three part -->
+                    {% for page in paginator.page_range %}
+                        {% if page < 4 %}
+                            <li class="page-item {% if page_obj.number == page %}active{% endif %}"><a class="page-link"
+                                                                                                       href="?page={{ page }}">{{ page|persian_num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    <li class="page-item"><a class="page-link" href="?page=4">&hellip;</a></li>
+                    <li class="page-item"><a class="page-link"
+                                             href="?page={{ paginator.num_pages }}">{{ paginator.num_pages|persian_num }}</a>
+                    </li>
+                {% elif page_obj.number > paginator.num_pages|add:'-3' %}
+
+                    <li class="page-item"><a class="page-link"
+                                             href="?page=1">۱</a>
+                    </li>
+                    <li class="page-item"><a class="page-link"
+                                             href="?page={{ paginator.num_pages|add:'-3' }}">&hellip;</a></li>
+                    {% for page in paginator.page_range %}
+                        {% if page > paginator.num_pages|add:'-3' %}
+                            <li class="page-item {% if page_obj.number == page %}active{% endif %}"><a class="page-link"
+                                                                                                       href="?page={{ page }}">{{ page|persian_num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                {% elif 4 <= page_obj.number and page_obj.number <= paginator.num_pages|add:'-3' %}
+                    <li class="page-item"><a href="?page=1" class="page-link">۱</a></li>
+                    <li class="page-item"><a href="?page={{ page_obj.previous_page_number|add:'-1' }}"
+                                             class="page-link">&hellip;</a></li>
+                    <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}"
+                                             class="page-link">{{ page_obj.previous_page_number|persian_num }}</a></li>
+                    <li class="page-item active"><a class="page-link"
+                                                    href="?page={{ page_obj.number }}">{{ page_obj.number|persian_num }}</a>
+                    </li>
+                    <li class="page-item"><a href="?page={{ page_obj.next_page_number }}"
+                                             class="page-link">{{ page_obj.next_page_number|persian_num }}</a></li>
+                    <li class="page-item"><a href="?page={{ page_obj.next_page_number|add:'1' }}" class="page-link">&hellip;</a>
+                    </li>
+                    <li class="page-item"><a href="?page={{ paginator.num_pages }}"
+                                             class="page-link">{{ paginator.num_pages|persian_num }}</a></li>
+                {% endif %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">بعدی</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% else %}
+        <nav aria-label="...">
+            <ul class="pagination">
+
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">قبلی</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">قبلی</a>
+                    </li>
+                {% endif %}
+
+                {% for page in paginator.page_range %}
+                    <li class="page-item {% if page == page_obj.number %}active{% endif %}">
+                        <a class="page-link" href="?page={{ page }}">{{ page|persian_num }}</a></li>
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" tabindex="-1">بعدی</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">بعدی</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endif %}
