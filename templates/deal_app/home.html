@@ -30,6 +30,15 @@
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <style>
+        a.title{
+            color: black;
+        }
+
+        a.title:hover{
+            color: #0c5460;
+        }
+    </style>
 
 </head>
 <body id="page-top">
@@ -62,40 +71,8 @@
 
 <header id="header-pic"></header>
 
-<header class="site-navbar mt-3">
-    <div class="container-fluid">
-        <div class="row align-items-center">
-            <div class="site-logo col-6"><a href="#">
-                <img src="{% static 'dealing_app/images/logo_small_black.png' %}" alt="MelketoLogo" width="150"
-                     height="50">
-            </a></div>
+{% include 'deal_app/navbar.html' %}
 
-            <nav style="text-align: center;" class="mx-auto site-navigation">
-                <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-                    <a class="btn btn-primary sign-btn" href="{% url 'account:logout' %}" role="button">خروج</a>
-                    <li><a href="{% url 'property:home' %}" class="nav-link active">صفحه اصلی</a></li>
-
-                    <li class="has-children">
-                        <a href="#">افزودن</a>
-                        <ul class="dropdown">
-                            <li><a href="{% url 'property:property_creation' %}" target="_blank">ملک</a></li>
-                            <li><a href="{% url 'account:user_creation' %}" target="_blank">کاربر</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="{% url 'account:profile' %}">پروفایل</a></li>
-                    <li><a href="#">درباره</a></li>
-                    <li><a href="#">ارتباط با ما</a></li>
-                </ul>
-            </nav>
-
-            <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
-                <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span
-                        class="icon-menu h3 m-0 p-0 mt-2"></span></a>
-            </div>
-
-        </div>
-    </div>
-</header>
 <!--
 </header>
   <header class="masthead text-center text-white">
@@ -130,7 +107,8 @@
                             </div>
                             <div class="col-lg-6 order-lg-1">
                                 <div class="p-5">
-                                    <h2 class="display-4">{{ home.get_full_intro }}</h2>
+                                    <a class="title" href="{% url 'property:detail_property' home.pk %}"><h2
+                                            class="display-4">{{ home.get_full_intro }}</h2></a>
                                     <p>{{ home.location }}</p>
                                 </div>
                             </div>
@@ -143,12 +121,14 @@
                 <div data-aos="zoom-in-up" class="container px-5">
                     <div class="row gx-5 align-items-center">
                         <div class="col-lg-6">
-                            <div class="p-5"><img class="img-fluid rounded-circle" src="{{ home.image.url }}" alt="..."/>
+                            <div class="p-5"><img class="img-fluid rounded-circle" src="{{ home.image.url }}"
+                                                  alt="..."/>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="p-5">
-                                <h2 class="display-4">{{ home.get_full_intro }}</h2>
+                                <a class="title" href="{% url 'property:detail_property' home.pk %}"><h2
+                                        class="display-4">{{ home.get_full_intro }}</h2></a>
                                 <p>{{ home.location }}</p>
                             </div>
                         </div>
@@ -157,6 +137,8 @@
             </section>
         {% endif %}
     {% endfor %}
+
+{% include 'deal_app/pagination.html' %}
 
 </div>
 

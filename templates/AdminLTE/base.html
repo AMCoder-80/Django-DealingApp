@@ -33,6 +33,13 @@
     <link href="{% static 'AdminLTE/css/light-bootstrap-dashboard.css' %}" rel="stylesheet"/>
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{% static 'AdminLTE/css/demo.css' %}" rel="stylesheet"/>
+
+    <style>
+        .title-img:hover{
+            border: 3px solid #6710ea;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -49,46 +56,22 @@
                 </a>
             </div>
             <ul class="nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="dashboard.html">
-                        <i class="nc-icon nc-chart-pie-35"></i>
+                <li class="nav-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'account:dashboard' %}">
+                        <i class="nc-icon nc-notes"></i>
                         <p>داشبورد</p>
                     </a>
                 </li>
-                <li>
-                    <a class="nav-link" href="./user.html">
+                <li class="nav-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'account:profile' %}">
                         <i class="nc-icon nc-circle-09"></i>
                         <p>پروفایل</p>
                     </a>
                 </li>
-                <li>
-                    <a class="nav-link" href="./table.html">
-                        <i class="nc-icon nc-notes"></i>
-                        <p>لیست جداول</p>
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="./typography.html">
+                <li class="nav-item {% if request.resolver_match.url_name == 'property_creation' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'property:property_creation' %}">
                         <i class="nc-icon nc-paper-2"></i>
-                        <p>تایپوگرافی</p>
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="./icons.html">
-                        <i class="nc-icon nc-atom"></i>
-                        <p>آیکون ها</p>
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="./maps.html">
-                        <i class="nc-icon nc-pin-3"></i>
-                        <p>نقشه ها</p>
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="./notifications.html">
-                        <i class="nc-icon nc-bell-55"></i>
-                        <p>اعلانات</p>
+                        <p>ثبت ملک</p>
                     </a>
                 </li>
             </ul>
@@ -99,7 +82,9 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg " color-on-scroll="500">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#pablo"> دشبورد </a>
+                <a class="navbar-brand" href="{% url 'property:home' %}"> <img src="{% static 'dealing_app/images/logo_small_black.png' %}"
+                                                            height="40px" alt="Melketo">
+                </a>
                 <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-bar burger-lines"></span>
@@ -110,8 +95,8 @@
                     <ul class="nav navbar-nav mr-auto">
                         <li class="nav-item">
                             <a href="#" class="nav-link" data-toggle="dropdown">
-                                <i class="nc-icon nc-palette"></i>
-                                <span class="d-lg-none">دشبورد</span>
+{#                                <i class="nc-icon nc-palette"></i>#}
+{#                                <span class="d-lg-none">دشبورد</span>#}
                             </a>
                         </li>
                         <li class="dropdown nav-item">
@@ -147,16 +132,16 @@
                                 <span class="no-icon">منو</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something</a>
+                                <a class="dropdown-item" href="{% url 'property:home' %}">صفحه اصلی</a>
+                                <a class="dropdown-item" href="{% url 'account:user_creation' %}">ثبت کاربر</a>
+                                <a class="dropdown-item" href="#"></a>
                                 <a class="dropdown-item" href="#">Something else here</a>
                                 <div class="divider"></div>
                                 <a class="dropdown-item" href="#">Separated link</a>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#pablo">
+                            <a class="nav-link" href="{% url 'account:logout' %}">
                                 <span class="no-icon">خروج</span>
                             </a>
                         </li>

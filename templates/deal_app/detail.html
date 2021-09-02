@@ -1,0 +1,163 @@
+{% load static %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>پلتفرم ملکتو</title>
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+          rel="stylesheet" type="text/css"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'dealing_app/css/main.css' %}" rel="stylesheet"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'dealing_app/fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'dealing_app/css/owl.carousel.min.css' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'dealing_app/css/bootstrap.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'dealing_app/css/style.css' %}">
+
+    <style>
+        .table td{
+            text-align: right;
+            vertical-align: middle !important;
+        }
+    </style>
+
+</head>
+<body>
+<!-- Navigation-->
+
+{% include 'deal_app/navbar.html' %}
+
+<!-- Page Header-->
+<header class="masthead" style="background-image: url({{ property.image.url }})">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1></h1>
+                    <h2 class="subheading">{{ property.get_full_intro }}</h2>
+                    <span class="meta">
+                        ثبت شده در
+                                {{ property.created|naturaltime }}
+                            </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="row" style="margin: 0">
+        <div class="col-md-12">
+            <div class="card strpied-tabled-with-hover">
+                <div class="card-body table-full-width table-responsive">
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                        <tr>
+                            <td>نوع واگذاری</td>
+                            <td>{{ property.get_sale_type }}</td>
+
+                        </tr>
+                        <tr>
+                            <td>نوع ملک</td>
+                            <td>{{ property.get_property_status }}</td>
+                        </tr>
+                        <tr>
+                            <td>طبقه</td>
+                            <td>{{ property.floor|persian_num }}</td>
+                        </tr>
+                        <tr>
+                            <td>آدرس</td>
+                            <td>{{ property.location }}</td>
+                        </tr>
+                        <tr>
+                            <td>متراژ کل</td>
+                            <td>{{ property.total_area|persian_num }} متر</td>
+                        </tr>
+                        <tr>
+                            <td>متراژ زیربنا</td>
+                            <td>{{ property.building_area|persian_num }} متر</td>
+                        </tr>
+                        <tr>
+                            <td>مالک</td>
+                            <td>{{ property.owner }}</td>
+                        </tr>
+                        <tr>
+                            <td>تاریخ ساخت</td>
+                            <td>{{ property.jalali_date }}</td>
+                        </tr>
+                        <tr>
+                            <td>قیمت</td>
+                            <td>{{ property.price|formatter_filter|persian_num }}</td>
+                        </tr>
+                        <tr>
+                            <td>امکانات</td>
+                            <td>{{ property.get_property_options }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+<!-- Footer-->
+{#<footer class="border-top">#}
+{#    <div class="container px-4 px-lg-5">#}
+{#        <div class="row gx-4 gx-lg-5 justify-content-center">#}
+{#            <div class="col-md-10 col-lg-8 col-xl-7">#}
+{#                <ul class="list-inline text-center">#}
+{#                    <li class="list-inline-item">#}
+{#                        <a href="#!">#}
+{#                                    <span class="fa-stack fa-lg">#}
+{#                                        <i class="fas fa-circle fa-stack-2x"></i>#}
+{#                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>#}
+{#                                    </span>#}
+{#                        </a>#}
+{#                    </li>#}
+{#                    <li class="list-inline-item">#}
+{#                        <a href="#!">#}
+{#                                    <span class="fa-stack fa-lg">#}
+{#                                        <i class="fas fa-circle fa-stack-2x"></i>#}
+{#                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>#}
+{#                                    </span>#}
+{#                        </a>#}
+{#                    </li>#}
+{#                    <li class="list-inline-item">#}
+{#                        <a href="#!">#}
+{#                                    <span class="fa-stack fa-lg">#}
+{#                                        <i class="fas fa-circle fa-stack-2x"></i>#}
+{#                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>#}
+{#                                    </span>#}
+{#                        </a>#}
+{#                    </li>#}
+{#                </ul>#}
+{#                <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</footer>#}
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="{% static 'dealing_app/js/control.js' %}"></script>
+</body>
+</html>

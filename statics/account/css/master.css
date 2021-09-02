@@ -513,6 +513,10 @@ iframe {
     animation-delay: 0.25s;
 }
 
+#last.animate__animated.animate__bounceInRight {
+    animation-delay: 0.3s;
+}
+
 #six.animate__animated.animate__bounceInRight {
     animation-delay: 0.35s;
 }

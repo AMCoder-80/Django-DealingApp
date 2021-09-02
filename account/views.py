@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
 from .forms import DealerCreationForm, SignInForm, ProfileForm
 from .models import *
+from property.models import Property
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -14,11 +16,17 @@ class SignIn(LoginView):
     redirect_authenticated_user = True
 
 
-class SignOut(LogoutView):
+class SignOut(LoginRequiredMixin, LogoutView):
     pass
 
 
-class UserCreation(CreateView):
+class Dashboard(LoginRequiredMixin, ListView):
+    model = Property
+    context_object_name = 'properties'
+    template_name = 'AdminLTE/dashboard.html'
+
+
+class UserCreation(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('account:user_creation')
     model = User
     fields = '__all__'
@@ -32,7 +40,7 @@ class DealerCreation(CreateView):
     template_name = 'account/registration.html'
 
 
-class ProfileUpdate(UpdateView):
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Dealer
     form_class = ProfileForm
     template_name = 'AdminLTE/profile.html'
@@ -46,4 +54,4 @@ class ProfileUpdate(UpdateView):
 
 
 def test(request):
-    return render(request, 'AdminLTE/dashboard.html')
+    return render(request, 'deal_app/detail.html')

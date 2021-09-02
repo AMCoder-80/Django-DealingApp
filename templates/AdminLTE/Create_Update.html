@@ -9,10 +9,17 @@
                 <div class="col-md-10 property-card">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">ویرایش پروفایل</h4>
+                            <h4 class="card-title">ثبت ملک</h4>
                         </div>
+                        {% if form.non_field_errors %}
+                            <div class="errors">
+                                {% for field in form.non_field_errors %}
+                                    <p>{{ field }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                         <div class="card-body">
-                            <form method="post">{% csrf_token %}
+                            <form method="post" enctype="multipart/form-data">{% csrf_token %}
                                 <div class="row">
                                     <div class="col-md-6 pr-1">
                                         <div class="form-group">

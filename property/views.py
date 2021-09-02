@@ -24,12 +24,14 @@ class Home(LoginRequiredMixin, ListView):
 class PropertyCreation(LoginRequiredMixin, CreateView):
     model = Property
     form_class = PropertyCreationForm
-    success_url = reverse_lazy('account:profile')
+    success_url = reverse_lazy('account:dashboard')
     template_name = 'AdminLTE/Create_Update.html'
 
 
 class PropertyDetail(DetailView):
-    ...
+    model = Property
+    template_name = 'deal_app/detail.html'
+    context_object_name = 'property'
 
 
 class PropertyDelete(DeleteView):
@@ -37,7 +39,10 @@ class PropertyDelete(DeleteView):
 
 
 class PropertyUpdate(UpdateView):
-    ...
+    model = Property
+    form_class = PropertyCreationForm
+    success_url = reverse_lazy('account:dashboard')
+    template_name = 'AdminLTE/Create_Update.html'
 
 
 @anonymous_only('property:home')

@@ -1,0 +1,59 @@
+{% load static %}
+
+<link href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'dealing_app/fonts/icomoon/style.css' %}">
+
+<link rel="stylesheet" href="{% static 'dealing_app/css/owl.carousel.min.css' %}">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="{% static 'dealing_app/css/bootstrap.min.css' %}">
+
+<!-- Style -->
+<link rel="stylesheet" href="{% static 'dealing_app/css/style.css' %}">
+
+
+<header class="site-navbar mt-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="site-logo col-6"><a href="#">
+                <img src="{% static 'dealing_app/images/logo_small_black.png' %}" alt="MelketoLogo" width="150"
+                     height="50">
+            </a></div>
+
+            <nav style="text-align: center;" class="mx-auto site-navigation">
+                <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+                    <a class="btn btn-primary sign-btn" href="{% url 'account:logout' %}" role="button">خروج</a>
+                    <li><a href="{% url 'property:home' %}"
+                           class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">صفحه
+                        اصلی</a></li>
+
+                    <li class="has-children">
+                        <a href="#">افزودن</a>
+                        <ul class="dropdown">
+                            <li><a href="{% url 'property:property_creation' %}" target="_blank">ملک</a></li>
+                            <li><a href="{% url 'account:user_creation' %}" target="_blank">کاربر</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'account:profile' %}">پروفایل</a></li>
+                    <li><a href="{% url 'account:dashboard' %}">داشبورد</a></li>
+                    <li><a href="#">ارتباط با ما</a></li>
+                </ul>
+            </nav>
+
+
+            <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
+                <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span
+                        class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+
+<script src="{% static 'dealing_app/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'dealing_app/js/popper.min.js' %}"></script>
+<script src="{% static 'dealing_app/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'dealing_app/js/jquery.sticky.js' %}"></script>
+<script src="{% static 'dealing_app/js/main.js' %}"></script>

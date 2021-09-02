@@ -1,6 +1,8 @@
 from django.db import models
+from django.utils.html import format_html
 
 from account.models import User
+from .utils import j_to_g
 
 
 # Create your models here.
@@ -40,7 +42,7 @@ class Property(models.Model):
     price = models.PositiveBigIntegerField(verbose_name='قیمت')
     options = models.ManyToManyField(Options, verbose_name='امکانات')
     requesters = models.ManyToManyField(User, limit_choices_to={'status': 'B'},
-                 related_name='requested_properties', blank=True, verbose_name='متقاضیان')
+                                        related_name='requested_properties', blank=True, verbose_name='متقاضیان')
 
     @property
     def get_full_intro(self):
@@ -51,6 +53,35 @@ class Property(models.Model):
             'H': 'ویلایی'
         }
         return status[self.property_type] + " " + str(self.total_area) + " متری " + status[self.sale_type]
+
+    @property
+    def get_property_status(self):
+        status = {
+            'A': 'آپارتمان',
+            'H': 'ویلایی'
+        }
+        return status[self.property_type]
+
+    @property
+    def get_sale_type(self):
+        status = {
+            'S': 'فروش',
+            'R': 'اجاره',
+        }
+        return status[self.sale_type]
+
+    def image_tag(self):
+        return format_html(f"<img class='title-img' src='{self.image.url}' width='112' height='80' style='border-radius: 15px'>")
+
+    image_tag.short_description = 'تصویر اصلی'
+
+    @property
+    def get_property_options(self):
+        return format_html('<br>'.join([i.name for i in self.options.all()]))
+
+    def jalali_date(self):
+        print(j_to_g(self.date_built))
+        return j_to_g(self.date_built)
 
     def __str__(self):
         return self.get_full_intro
