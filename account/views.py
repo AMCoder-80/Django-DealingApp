@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.shortcuts import render
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, ListView
+
+from property.models import Property
 from .forms import DealerCreationForm, SignInForm, ProfileForm
 from .models import *
-from property.models import Property
-from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
 
@@ -27,10 +29,19 @@ class Dashboard(LoginRequiredMixin, ListView):
 
 
 class UserCreation(LoginRequiredMixin, CreateView):
-    success_url = reverse_lazy('account:user_creation')
     model = User
     fields = '__all__'
     template_name = 'account/user_creation.html'
+
+    def get_success_url(self):
+        name = self.request.GET.get('name', None)
+        pk = self.request.GET.get('pk', None)
+
+        if pk:
+            property = Property.objects.get(pk=int(pk))
+            property.requesters.add(self.object.id)
+            property.save()
+            return reverse(name, kwargs={'pk': pk})
 
 
 class DealerCreation(CreateView):

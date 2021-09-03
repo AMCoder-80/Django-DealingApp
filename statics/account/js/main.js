@@ -32,7 +32,7 @@
                 return false;
             }
         } else {
-            if ($(input).val().trim() === '' && $(input).attr('type') !== 'email' && $(input).attr('name') !== 'max_budget') {
+            if ($(input).val().trim() === '' && $(input).attr('type') !== 'email' && $(input).attr('name') !== 'max_budget' && $(input).attr('name') !== 'num_of_people') {
                 console.log($(input).attr('name'));
                 console.log('False')
                 return false;
@@ -54,4 +54,5 @@
 
 
 })(jQuery);
+
 

@@ -34,9 +34,25 @@
     <link rel="stylesheet" href="{% static 'dealing_app/css/style.css' %}">
 
     <style>
-        .table td{
+        .table td {
             text-align: right;
             vertical-align: middle !important;
+        }
+
+        .requesters {
+            height: 200px;
+            overflow-y: scroll;
+        }
+
+        #add-user {
+            color: #fff;
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+            font-family: 'sahel';
+            margin-right: auto;
+            margin-left: 15px;
+            display: block;
+            margin-top: 20px;
         }
     </style>
 
@@ -111,6 +127,38 @@
                         <tr>
                             <td>امکانات</td>
                             <td>{{ property.get_property_options }}</td>
+                        </tr>
+                        <tr>
+                            <td>متقاضیان</td>
+                            <td>
+                                <div class="requesters">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>نام</th>
+                                            <th>حداکثر بودجه</th>
+                                            <th>تعداد نفرات</th>
+                                            <th>شماره تماس</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for requester in property.requesters.all %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ requester }}</td>
+                                                <td>{{ requester.max_budget|formatter_filter|persian_num }}</td>
+                                                <td>{{ requester.num_of_people|persian_num }}</td>
+                                                <td>{{ requester.phone|persian_num }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <a href="{% url 'account:user_creation' %}?name={{ request.resolver_match.app_name }}:{{ request.resolver_match.url_name }}&pk={{ property.pk }}"
+                                   id="add-user" class="btn-info btn btn-fill pull-right">افزودن متقاضی
+                                </a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

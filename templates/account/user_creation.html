@@ -13,6 +13,9 @@
     #five{
     display: none;
     }
+    #six{
+    display: none;
+    }
 
 {% endblock style %}
 
@@ -725,6 +728,13 @@
 
     <div class="wrap-input100 validate-input content animate__animated" id="five"
          data-validate="Is special is required">
+        {{ form.num_of_people|add_class:'input100'|placeholder:'تعداد نفرات' }}
+        <span class="focus-input100"></span>
+        <span class="symbol-input100"><i class="fa fa-users" aria-hidden="true"></i></span>
+    </div>
+
+    <div class="wrap-input100 validate-input content animate__animated" id="six"
+         data-validate="Is special is required">
         {{ form.max_budget|add_class:'input100'|placeholder:'حداکثر بودجه' }}
         <span class="focus-input100"></span>
         <span class="symbol-input100"><i class="fa fa-money" aria-hidden="true"></i></span>
@@ -756,15 +766,23 @@
     let select_op = document.getElementById('id_status')
     select_op.addEventListener('change', function () {
     let result = select_op.options[select_op.selectedIndex];
-    let field = document.getElementById('five');
-    console.log(result.value);
+    let field1 = document.getElementById('five');
+    let field2 = document.getElementById('six');
     if (result.value === 'B') {
-    field.classList.remove('animate__zoomOut')
-    field.classList.add('animate__zoomIn')
-    field.style.display = 'block';
+    field1.classList.remove('animate__zoomOut')
+    field1.classList.add('animate__zoomIn')
+    field1.style.display = 'block';
+
+    field2.classList.remove('animate__zoomOut')
+    field2.classList.add('animate__zoomIn')
+    field2.style.display = 'block';
     } else {
-    field.classList.remove('animate__zoomIn')
-    field.classList.add('animate__zoomOut')
+    field1.classList.remove('animate__zoomIn')
+    field1.classList.add('animate__zoomOut')
+
+    field2.classList.remove('animate__zoomIn')
+    field2.classList.add('animate__zoomOut')
     }
     })
+
 {% endblock js %}

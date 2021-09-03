@@ -29,6 +29,7 @@ class User(models.Model):
     phone = models.CharField(max_length=20, verbose_name='تلفن')
     status = models.CharField(max_length=1, choices=STATUS, verbose_name='وضعیت')
     max_budget = models.PositiveBigIntegerField(null=True, blank=True, verbose_name='حداکثر بودجه')
+    num_of_people = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='تعداد نفرات')
 
     def __str__(self):
         return self.first_name + " " + self.last_name
