@@ -1,0 +1,22 @@
+{% extends 'AdminLTE/base.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block style %}
+    .req_sel{
+    height: 200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    direction: rtl;
+    }
+{% endblock style %}
+
+{% block content %}
+    <form style="height: 100%" method="post">
+        {% csrf_token %}
+        <div style="text-align: right">
+            {{ form.requesters|add_class:"req_sel"|as_crispy_field }}
+            <input class="btn btn-success btn-lg btn-block" type="submit" value="ثبت">
+        </div>
+    </form>
+{% endblock content %}

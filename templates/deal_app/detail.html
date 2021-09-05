@@ -193,7 +193,7 @@
                             <td>متقاضیان</td>
                             <td>
                                 <div class="requesters">
-                                    <table class="table table-hover">
+                                    <table id="reqs" class="table table-hover">
                                         <thead>
                                         <tr>
                                             <th></th>
@@ -217,7 +217,7 @@
                                     </table>
                                 </div>
                                 <div id="btns">
-                                    <a href="#" id="a" class="add-user btn-info btn btn-fill pull-right">افزودن
+                                    <a href="{% url 'property:add_requester' property.pk %}?pk={{ property.pk }}" id="a" class="add-user btn-info btn btn-fill pull-right">افزودن
                                         متقاضی</a>
                                     <a id="b"
                                        href="{% url 'account:user_creation' %}?name={{ request.resolver_match.app_name }}:{{ request.resolver_match.url_name }}&pk={{ property.pk }}"

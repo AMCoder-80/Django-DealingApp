@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -72,6 +72,18 @@ class PropertyUpdate(UpdateView):
         for image in images:
             prop = PropertyImages.objects.create(property=self.object, image=image)
         return result
+
+
+class UpdateRequesters(LoginRequiredMixin, UpdateView):
+    model = Property
+    fields = ['requesters', ]
+    template_name = 'AdminLTE/requesters.html'
+
+    def get_success_url(self):
+        pk = self.request.GET.get('pk', None)
+        if pk:
+            return reverse('property:detail_property', kwargs={'pk': pk})
+        return reverse('property:home')
 
 
 @anonymous_only('property:home')
