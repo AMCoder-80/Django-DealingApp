@@ -1,0 +1,49 @@
+{% extends 'AdminLTE/base.html' %}
+
+{% block style %}
+    #contain{
+    margin: auto;
+    }
+    .card{
+    box-shadow: 8px 6px 20px 0px red;
+    background-color: #ff000026;
+    }
+    .card-header{
+    background-color: #f8d2d3 !important;
+    }
+    #text-part{
+    display: block;
+    margin: auto;
+    }
+{% endblock style %}
+
+{% block content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div id="contain" class="col-md-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">حذف ملک</h4>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">{% csrf_token %}
+                                <div class="row">
+                                    <div id="text-part" class="col-md-6 pr-1">
+                                        <div class="form-group">
+                                            <p>آیا از حذف "{{ property }}" اطمینان دارید؟</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-info btn-fill ml-3 pull-right">تائید
+                                </button>
+                                <a href="{% url 'account:dashboard' %}" class="btn btn-success btn-fill pull-right">انصراف
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

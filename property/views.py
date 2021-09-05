@@ -50,7 +50,10 @@ class PropertyDetail(DetailView):
 
 
 class PropertyDelete(DeleteView):
-    ...
+    model = Property
+    context_object_name = 'property'
+    success_url = reverse_lazy('account:dashboard')
+    template_name = 'deal_app/delete.html'
 
 
 class PropertyUpdate(UpdateView):

@@ -42,6 +42,7 @@
                                             <td>{{ property.get_sale_type }}</td>
                                             <td>{{ property.get_property_status }}</td>
                                             <td>{{ property.price|formatter_filter }}</td>
+                                            <td><a class="btn btn-fill btn-danger" href="{% url 'property:property_delete' property.pk %}">حذف ملک</a></td>
                                             <td></td>
                                         </tr>
                                     {% endfor %}
