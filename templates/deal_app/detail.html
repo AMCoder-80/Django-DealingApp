@@ -33,6 +33,24 @@
     <!-- Style -->
     <link rel="stylesheet" href="{% static 'dealing_app/css/style.css' %}">
 
+
+    <!--  Carousel  -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'dealing_app/carousel/fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'dealing_app/carousel/css/owl.carousel.min.css' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'dealing_app/carousel/css/bootstrap.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'dealing_app/carousel/css/style.css' %}">
+
     <style>
         .table td {
             text-align: right;
@@ -55,19 +73,46 @@
             margin-top: 20px;
         }
 
-        div#btns{
+        div#btns {
             display: flex;
         }
 
-        a#a{
+        a#a {
             margin-right: 0;
             margin-left: auto;
         }
 
-        a#b{
+        a#b {
             margin-left: 40px;
             margin-right: auto;
         }
+
+        #car-control {
+            margin: auto;
+            height: 500px;
+            width: 80%;
+            border-radius: 200px;
+            margin-bottom: 60px;
+        }
+
+        .car-pic {
+            border-radius: 50px;
+            width: 700px;
+            height: 500px;
+        }
+
+        header.header {
+            background-image: url({% static 'dealing_app/images/building.jpg' %});
+            background-color: #cccccc;
+            height: 500px;
+            background-position: center;
+            opacity: 0.5;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+
     </style>
 
 </head>
@@ -77,7 +122,8 @@
 {% include 'deal_app/navbar.html' %}
 
 <!-- Page Header-->
-<header class="masthead" style="background-image: url({{ property.image.url }})">
+<header class="masthead header">
+
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
@@ -85,14 +131,15 @@
                     <h1></h1>
                     <h2 class="subheading">{{ property.get_full_intro }}</h2>
                     <span class="meta">
-                        ثبت شده در
-                                {{ property.created|naturaltime }}
-                            </span>
+                    ثبت شده در
+                    {{ property.created|naturaltime }}
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
+{% include 'deal_app/Carousel.html' %}
 <!-- Post Content-->
 <article class="mb-4">
     <div class="row" style="margin: 0">
@@ -170,8 +217,10 @@
                                     </table>
                                 </div>
                                 <div id="btns">
-                                    <a href="#" id="a" class="add-user btn-info btn btn-fill pull-right">افزودن متقاضی</a>
-                                    <a id="b" href="{% url 'account:user_creation' %}?name={{ request.resolver_match.app_name }}:{{ request.resolver_match.url_name }}&pk={{ property.pk }}"
+                                    <a href="#" id="a" class="add-user btn-info btn btn-fill pull-right">افزودن
+                                        متقاضی</a>
+                                    <a id="b"
+                                       href="{% url 'account:user_creation' %}?name={{ request.resolver_match.app_name }}:{{ request.resolver_match.url_name }}&pk={{ property.pk }}"
                                        class="add-user btn-info btn btn-fill pull-right">افزودن کاربر
                                     </a>
                                 </div>

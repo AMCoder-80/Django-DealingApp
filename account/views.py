@@ -65,4 +65,4 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
 
 
 def test(request):
-    return render(request, 'deal_app/detail.html')
+    return render(request, 'deal_app/Carousel.html')
