@@ -36,11 +36,11 @@ class Property(models.Model):
     building_area = models.PositiveSmallIntegerField(verbose_name='متراژ زیربنا')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'status': 'O'},
                               related_name='properties', verbose_name='مالک')
-    image = models.ImageField(verbose_name='تصاویر')
+    # image = models.ImageField(verbose_name='تصاویر')
     created = models.DateTimeField(auto_now_add=True)
     date_built = models.DateField(verbose_name='تاریخ ساخت')
     price = models.PositiveBigIntegerField(verbose_name='قیمت')
-    options = models.ManyToManyField(Options, verbose_name='امکانات')
+    options = models.ManyToManyField(Options, verbose_name='امکانات', blank=True)
     requesters = models.ManyToManyField(User, limit_choices_to={'status': 'B'},
                                         related_name='requested_properties', blank=True, verbose_name='متقاضیان')
 
@@ -71,7 +71,15 @@ class Property(models.Model):
         return status[self.sale_type]
 
     def image_tag(self):
-        return format_html(f"<img class='title-img' src='{self.image.url}' width='112' height='80' style='border-radius: 15px'>")
+        try:
+            image = format_html(
+                f"<img class='title-img' src='{self.images.all()[0].image.url}' width='115' height='100' "
+                f"style='border-radius: 15px'>")
+        except:
+            image = format_html(
+                f"<img class='title-img' src='/media/no_image.jpg' width='115' height='100' "
+                f"style='border-radius: 15px'>")
+        return image
 
     image_tag.short_description = 'تصویر اصلی'
 
@@ -89,3 +97,12 @@ class Property(models.Model):
     class Meta:
         verbose_name = 'ملک'
         verbose_name_plural = 'املاک'
+
+
+class PropertyImages(models.Model):
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(default='no_image.jpg', verbose_name='تصویر')
+
+    class Meta:
+        verbose_name = 'تصویر'
+        verbose_name_plural = 'تصاویر'

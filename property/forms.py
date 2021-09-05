@@ -1,4 +1,5 @@
 from django import forms
+
 from .models import Property
 
 
@@ -9,6 +10,11 @@ class PropertyCreationForm(forms.ModelForm):
 
         self.fields['date_built'].label += " (25-10-1399)"
 
+
     class Meta:
         model = Property
-        exclude = ['created']
+        exclude = ['created', 'image']
+
+
+class PropertyImageForm(forms.Form):
+    images = forms.ImageField(label='تصاویر', widget=forms.ClearableFileInput(attrs={'multiple': True}))

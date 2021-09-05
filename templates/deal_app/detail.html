@@ -44,7 +44,7 @@
             overflow-y: scroll;
         }
 
-        #add-user {
+        a.add-user {
             color: #fff;
             background-color: #17a2b8;
             border-color: #17a2b8;
@@ -53,6 +53,20 @@
             margin-left: 15px;
             display: block;
             margin-top: 20px;
+        }
+
+        div#btns{
+            display: flex;
+        }
+
+        a#a{
+            margin-right: 0;
+            margin-left: auto;
+        }
+
+        a#b{
+            margin-left: 40px;
+            margin-right: auto;
         }
     </style>
 
@@ -155,9 +169,12 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <a href="{% url 'account:user_creation' %}?name={{ request.resolver_match.app_name }}:{{ request.resolver_match.url_name }}&pk={{ property.pk }}"
-                                   id="add-user" class="btn-info btn btn-fill pull-right">افزودن متقاضی
-                                </a>
+                                <div id="btns">
+                                    <a href="#" id="a" class="add-user btn-info btn btn-fill pull-right">افزودن متقاضی</a>
+                                    <a id="b" href="{% url 'account:user_creation' %}?name={{ request.resolver_match.app_name }}:{{ request.resolver_match.url_name }}&pk={{ property.pk }}"
+                                       class="add-user btn-info btn btn-fill pull-right">افزودن کاربر
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
