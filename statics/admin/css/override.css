@@ -1,9 +1,0 @@
-@font-face {
-    font-family: sahel;
-    src: url(../../account/fonts/sahel/Sahel.woff);
-}
-
-body{
-    direction: rtl;
-    font-family: sahel, serif;
-}

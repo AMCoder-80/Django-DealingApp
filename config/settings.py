@@ -117,13 +117,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-USE_THOUSAND_SEPARATOR = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = BASE_DIR / 'statics'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'statics',
@@ -142,3 +141,6 @@ LOGOUT_REDIRECT_URL = 'property:greeting'
 LOGIN_URL = 'account:login'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
