@@ -34,14 +34,15 @@ class UserCreation(LoginRequiredMixin, CreateView):
     template_name = 'account/user_creation.html'
 
     def get_success_url(self):
-        name = self.request.GET.get('name', None)
-        pk = self.request.GET.get('pk', None)
+        name = self.request.GET.get('name')
+        pk = self.request.GET.get('pk')
 
         if pk:
             property = Property.objects.get(pk=int(pk))
             property.requesters.add(self.object.id)
             property.save()
             return reverse(name, kwargs={'pk': pk})
+        return reverse('account:dashboard')
 
 
 class DealerCreation(CreateView):
