@@ -1,6 +1,7 @@
 asgiref==3.4.1
 Django==3.2.6
 django-crispy-forms==1.12.0
+django-filter==2.4.0
 django-gravatar2==1.4.4
 django-widget-tweaks==1.4.8
 jdatetime==3.6.2

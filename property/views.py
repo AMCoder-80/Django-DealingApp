@@ -12,6 +12,7 @@ from django.views.generic import (
 from .decorators import anonymous_only
 from .forms import PropertyCreationForm, PropertyImageForm, PropertyRequestUpdate
 from .models import Property, PropertyImages
+from .filter import MyFilter
 
 
 # Create your views here.
@@ -23,7 +24,14 @@ class Home(LoginRequiredMixin, ListView):
     context_object_name = 'homes'
 
     def get_queryset(self):
-        return Property.objects.filter(dealer=self.request.user)
+        global prop
+        prop = Property.objects.filter(dealer=self.request.user)
+        return MyFilter(self.request.GET, queryset=prop).qs
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(Home, self).get_context_data(*args, **kwargs)
+        context['search_form'] = MyFilter(self.request.GET, queryset=prop)
+        return context
 
 
 # The Property creation view

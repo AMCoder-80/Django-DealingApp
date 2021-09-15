@@ -1,0 +1,63 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="author" content="colorlib.com">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet"/>
+    <link href="{% static 'dealing_app/css/search.css' %}" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="search-bar">
+    <form method="GET">
+        <div class="inner-form">
+
+            <div class="section">
+                <label class="label-sec" for="id_sale_type">نوع واگذاری</label>
+                {{ search_form.form.sale_type|add_class:'my-field' }}
+            </div>
+
+            <div class="section">
+                <label class="label-sec" for="id_sale_type">نوع ملک</label>
+                {{ search_form.form.property_type|add_class:'my-field' }}
+            </div>
+
+            <div class="section">
+                <label class="label-sec" for="id_sale_type">حداکثر قیمت</label>
+                {{ search_form.form.price|add_class:'my-field' }}
+            </div>
+
+            <div class="section">
+                <label class="label-sec" for="id_sale_type">محدوده، ناحیه</label>
+                {{ search_form.form.location|add_class:'my-field' }}
+            </div>
+
+            <div class="input-field fifth-wrap">
+                <button class="btn-search" type="submit">جستجو</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script src="{% static 'dealing_app/js/extention/choices.js' %}"></script>
+<script src="{% static 'dealing_app/js/extention/flatpickr.js' %}"></script>
+<script>
+    flatpickr(".datepicker",
+        {});
+
+</script>
+<script>
+    const choices = new Choices('[data-trigger]',
+        {
+            searchEnabled: false,
+            itemSelectText: '',
+        });
+
+</script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
