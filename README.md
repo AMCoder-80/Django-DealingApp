@@ -2,7 +2,9 @@
 
 Have you ever wonder, how can you simplify the process of buying, renting or selling a house??
 Here is the solution
-Django real estate app makes dealers able to create a communication between the owner and the buyer,
+Django real estate app makes dealers able to create a communication between the owner and the buyer
+You can experience the Demo <a href="https://melketo.pythonanywhere.com/properties/" target="_blank">HERE</a>
+
 Some of the applicatin's options are listed bellow:
 
 ![1](https://user-images.githubusercontent.com/81905606/133463012-d3e9fff0-fb37-42fb-be89-4292ccc93a58.PNG)
