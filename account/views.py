@@ -7,12 +7,13 @@ from django.views.generic import CreateView, UpdateView, ListView
 from property.models import Property
 from .forms import DealerCreationForm, SignInForm, ProfileForm
 from .models import *
+from .mixin import UnAuthenticatedUserMixin
 
 
 # Create your views here.
 
 
-class SignIn(LoginView):
+class SignIn(UnAuthenticatedUserMixin, LoginView):
     template_name = 'account/login.html'
     form_class = SignInForm
     redirect_authenticated_user = True
@@ -30,7 +31,7 @@ class Dashboard(LoginRequiredMixin, ListView):
 
 class UserCreation(LoginRequiredMixin, CreateView):
     model = User
-    fields = '__all__'
+    fields = ['first_name', 'last_name', 'email', 'phone', 'status', 'max_budget', 'num_of_people']
     template_name = 'account/user_creation.html'
 
     def get_success_url(self):
@@ -38,15 +39,19 @@ class UserCreation(LoginRequiredMixin, CreateView):
         pk = self.request.GET.get('pk')
 
         if pk:
-            property = Property.objects.get(pk=int(pk))
-            property.requesters.add(self.object.id)
-            property.save()
+            prop = Property.objects.get(pk=int(pk))
+            prop.requesters.add(self.object.id)
+            prop.save()
             return reverse(name, kwargs={'pk': pk})
         return reverse('account:dashboard')
 
+    def form_valid(self, form):
+        form.instance.dealer = self.request.user
+        return super(UserCreation, self).form_valid(form)
 
-class DealerCreation(CreateView):
-    success_url = reverse_lazy('account:user_creation')
+
+class DealerCreation(UnAuthenticatedUserMixin, CreateView):
+    success_url = reverse_lazy('property:home')
     model = Dealer
     form_class = DealerCreationForm
     template_name = 'account/registration.html'

@@ -23,6 +23,7 @@ class User(models.Model):
         ('O', 'مالک'),
         ('B', 'خریدار'),
     )
+    dealer = models.ForeignKey(Dealer, on_delete=models.CASCADE, related_name='registered_users', null=True)
     first_name = models.CharField(max_length=60, verbose_name='نام')
     last_name = models.CharField(max_length=60, verbose_name='نام خانوادگی')
     email = models.EmailField(null=True, blank=True, verbose_name='ایمیل')

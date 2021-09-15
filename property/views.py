@@ -10,37 +10,50 @@ from django.views.generic import (
 )
 
 from .decorators import anonymous_only
-from .forms import PropertyCreationForm, PropertyImageForm
+from .forms import PropertyCreationForm, PropertyImageForm, PropertyRequestUpdate
 from .models import Property, PropertyImages
 
 
 # Create your views here.
 
-
+# The main view for listing all the properties
 class Home(LoginRequiredMixin, ListView):
-    model = Property
     paginate_by = 4
     template_name = 'deal_app/home.html'
     context_object_name = 'homes'
 
+    def get_queryset(self):
+        return Property.objects.filter(dealer=self.request.user)
 
+
+# The Property creation view
 class PropertyCreation(LoginRequiredMixin, CreateView):
     model = Property
     form_class = PropertyCreationForm
     success_url = reverse_lazy('account:dashboard')
     template_name = 'AdminLTE/Create_Update.html'
 
+    # Add an extra field for image model to save required pictures
     def get_context_data(self, **kwargs):
+        # Inherit from the parent object
         context = super(PropertyCreation, self).get_context_data(**kwargs)
         context['image_form'] = PropertyImageForm()
         return context
 
+    def get_form_kwargs(self):
+        context = super(PropertyCreation, self).get_form_kwargs()
+        context.update({'user': self.request.user})
+        return context
+
+    # Since we defined an extra field, we need to save its value separately
     def form_valid(self, form):
-        result = super(PropertyCreation, self).form_valid(form)
+        form.instance.dealer = self.request.user
+        # Getting all the sent images as a list
         images = self.request.FILES.getlist('images')
         for image in images:
+            # Save each image associate with the saved property model
             PropertyImages.objects.create(property=self.object, image=image)
-        return result
+        return super(PropertyCreation, self).form_valid(form)
 
 
 class PropertyDetail(DetailView):
@@ -73,13 +86,14 @@ class PropertyUpdate(UpdateView):
         print(images)
         PropertyImages.objects.filter(property=self.object).delete()
         for image in images:
-            prop = PropertyImages.objects.create(property=self.object, image=image)
+            PropertyImages.objects.create(property=self.object, image=image)
         return result
 
 
+# Only the requesters of a property will be updated here
 class UpdateRequesters(LoginRequiredMixin, UpdateView):
     model = Property
-    fields = ['requesters', ]
+    form_class = PropertyRequestUpdate
     template_name = 'AdminLTE/requesters.html'
 
     def get_success_url(self):
@@ -88,7 +102,14 @@ class UpdateRequesters(LoginRequiredMixin, UpdateView):
             return reverse('property:detail_property', kwargs={'pk': pk})
         return reverse('property:home')
 
+    # Pass the user object to the forms
+    def get_form_kwargs(self):
+        context = super(UpdateRequesters, self).get_form_kwargs()
+        context.update({'user': self.request.user})
+        return context
 
+
+# Custom decorator which does not allow authenticated users
 @anonymous_only('property:home')
 def greeting(request):
     return render(request, 'deal_app/greeting.html')

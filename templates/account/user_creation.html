@@ -756,7 +756,7 @@
     {% elif form.errors %}
         <div id="errors-section">
             {% for field in form.errors %}
-                <p>{{ field.errors }}</p>
+                <p>{{ field }}</p>
             {% endfor %}
         </div>
     {% endif %}

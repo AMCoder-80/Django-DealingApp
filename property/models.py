@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.html import format_html
-
-from account.models import User
+from account.models import User, Dealer
 from .utils import j_to_g
 
 
@@ -28,13 +27,14 @@ class Property(models.Model):
         ('A', 'آپارتمان'),
         ('H', 'ویلایی'),
     )
+    dealer = models.ForeignKey(Dealer, on_delete=models.CASCADE, related_name='registered_properties', null=True)
     sale_type = models.CharField(max_length=1, choices=SALE_STATUS, verbose_name='نوع واگذاری')
     property_type = models.CharField(max_length=1, choices=PROPERTY_STATUS, verbose_name='نوع ملک')
     floor = models.SmallIntegerField(default=0, verbose_name='طبقه')
     location = models.TextField(verbose_name='آدرس')
     total_area = models.PositiveSmallIntegerField(verbose_name='متراژ کل')
     building_area = models.PositiveSmallIntegerField(verbose_name='متراژ زیربنا')
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'status': 'O'},
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'status': 'O', },
                               related_name='properties', verbose_name='مالک')
     # image = models.ImageField(verbose_name='تصاویر')
     created = models.DateTimeField(auto_now_add=True)
